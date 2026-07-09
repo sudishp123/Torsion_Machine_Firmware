@@ -1,0 +1,5 @@
+C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/CMakeFiles/Senior.dir
+C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/CMakeFiles/edit_cache.dir
+C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/CMakeFiles/rebuild_cache.dir
+C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

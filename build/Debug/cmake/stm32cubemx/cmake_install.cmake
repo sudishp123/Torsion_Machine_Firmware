@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/cmake/stm32cubemx
+# Install script for directory: C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,6 +40,6 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/sudis/OneDrive/Desktop/Senior-Code/Senior/build/Debug/cmake/stm32cubemx/install_local_manifest.txt"
+  file(WRITE "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/build/Debug/cmake/stm32cubemx/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

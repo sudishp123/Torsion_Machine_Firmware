@@ -54,6 +54,15 @@ typedef enum {
 #define CLOCK_FREQUENCY 16000000 // 16 MHz
 
 #define COUNTS_PER_REV 2400.0f
+
+// Torque Sensor Constants
+#define VREF_ADC 3.3f
+#define ADC_MAX  4095.0f
+#define INA_GAIN 330
+#define EXCITATION_VOLTAGE 5.0f
+#define SENSOR_SENSTIVITY_MVV 1.0f
+#define SENSOR_RATED_TORQUE 50.0f
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -120,6 +129,8 @@ volatile uint32_t current_step = 0;
 volatile uint8_t stepper_running = 0;
  
 volatile MotorState motor_state = MOTOR_IDLE;
+
+uint16_t adc_zero_offset = 57; //ADC offset this is the value for which torque is 0
 
 //Variable Changes when terminate test is clicked
 /* USER CODE END PV */
@@ -874,12 +885,14 @@ float Calculate_Rotation(uint16_t steps) {
 }
  
 float Calculate_Torque (uint16_t adc){
-  float torque = adc;
+  float v_adc = ((float)((int32_t)adc - (int32_t)adc_zero_offset) /  ADC_MAX) * VREF_ADC;
+  float v_bridge = v_adc/INA_GAIN;
 
-  if (torque < 0.0f){
-    torque = 0.0f;
-  }
-  return torque;
+  float senstivity_v = (SENSOR_SENSTIVITY_MVV/1000.0f) * EXCITATION_VOLTAGE;
+
+  float torque_nm = (v_bridge/ senstivity_v) * SENSOR_RATED_TORQUE;
+
+  return torque_nm;
 }
  
 /**

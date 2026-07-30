@@ -40,7 +40,7 @@ typedef enum {
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 // Communication and buffer definitions
-#define RX_BUFFER_SIZE 50       // Buffer size for UART reception
+#define RX_BUFFER_SIZE 51       // Buffer size for UART reception
 #define BUFFER_SIZE 1           // General buffer size
 #define NUM_ADC_CHANNELS 1      // Number of ADC channels in use
 

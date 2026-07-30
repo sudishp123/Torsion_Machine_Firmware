@@ -130,7 +130,7 @@ volatile uint8_t stepper_running = 0;
  
 volatile MotorState motor_state = MOTOR_IDLE;
 
-uint16_t adc_zero_offset = 57; //ADC offset this is the value for which torque is 0
+uint16_t adc_zero_offset; //ADC offset this is the value for which torque is 0
 
 //Variable Changes when terminate test is clicked
 /* USER CODE END PV */
@@ -331,7 +331,7 @@ static void MX_ADC1_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_0;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_71CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_239CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -806,6 +806,7 @@ void Motor_Enable(uint8_t ena)
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, arr1);
     __HAL_TIM_SET_COUNTER(&htim1, 0);
 
+    adc_zero_offset = Tare_Torque_Sensor;
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, NUM_ADC_CHANNELS);
 
         
@@ -1017,6 +1018,18 @@ uint32_t GetMicroseconds(void) {
   return (overflow * 65536UL) + counter;
 }
 
+uint16_t Tare_Torque_Sensor(void){
+  uint32_t sum = 0;
+  const int N = 200;
+  for (int i = 0; i < N; i++){
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 10);
+    sum += HAL_ADC_GetValue(&hdac1);
+    HAL_ADC_stop(&hadc1);
+  }
+  return (uint16_t)(sum/N);
+}
+
  
 void Stream_Data(void) {
   if (!uart_dma_busy && recording_enabled && motor_state == MOTOR_RUNNING && stepper_running) {
@@ -1052,6 +1065,16 @@ void Stream_Data(void) {
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   if (hadc->Instance == ADC1 && recording_enabled && motor_state == MOTOR_RUNNING) {
+    adc_avg_buf[adc_avg_idx] = adc_buffer[0];
+    adc_avg_idx = (adc_avg_idx + 1) % ADC_AVG_WINDOW;
+
+    uint32_t sum = 0;
+    for (int i = 0; i < ADC_AVG_WINDOW; i++){
+      sum += adc_avg_buf[i]
+    }
+    latest_torque_adc = (uint16_t)(sum/ADC_AVG_WINDOW);
+    adc_callback_count++;
+    
     latest_torque_adc = adc_buffer[0];
     Stream_Data();
     adc_callback_count++;

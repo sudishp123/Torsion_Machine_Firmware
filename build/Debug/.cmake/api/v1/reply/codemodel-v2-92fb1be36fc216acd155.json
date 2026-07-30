@@ -2,6 +2,16 @@
 	"configurations" : 
 	[
 		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "stm32cubemx::@768a070a0fe75716b479",
+					"jsonFile" : "target-stm32cubemx-Debug-16f76188a49f813388c4.json",
+					"name" : "stm32cubemx",
+					"projectIndex" : 1
+				}
+			],
 			"directories" : 
 			[
 				{
@@ -10,7 +20,7 @@
 					[
 						1
 					],
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f040eec181a89de70dbe.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.22"
@@ -23,8 +33,12 @@
 					]
 				},
 				{
+					"abstractTargetIndexes" : 
+					[
+						0
+					],
 					"build" : "cmake/stm32cubemx",
-					"jsonFile" : "directory-cmake.stm32cubemx-Debug-a874d3cc84b5982fda2e.json",
+					"jsonFile" : "directory-cmake.stm32cubemx-Debug-720efe0a241989607e76.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.22"
@@ -53,6 +67,10 @@
 					]
 				},
 				{
+					"abstractTargetIndexes" : 
+					[
+						0
+					],
 					"directoryIndexes" : 
 					[
 						1
@@ -66,7 +84,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Senior::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Senior-Debug-e2698b3e4ba114a3f770.json",
+					"jsonFile" : "target-Senior-Debug-97fd833d9be96ea41218.json",
 					"name" : "Senior",
 					"projectIndex" : 0
 				}
@@ -76,12 +94,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/build/Debug",
-		"source" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware"
+		"build" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/build/Debug",
+		"source" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 8
+		"minor" : 10
 	}
 }

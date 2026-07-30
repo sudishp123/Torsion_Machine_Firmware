@@ -45,7 +45,7 @@ typedef enum {
 #define NUM_ADC_CHANNELS 1      // Number of ADC channels in use
 
 // Motor control definitions
-#define ALPHA 0.05              // Filter coefficient for EMA filter
+#define ALPHA 0.05            // Filter coefficient for EMA filter
 
 // Motor parameters
 #define PRESCALER 15 //COME BACK TO THIS
@@ -60,8 +60,11 @@ typedef enum {
 #define ADC_MAX  4095.0f
 #define INA_GAIN 330
 #define EXCITATION_VOLTAGE 5.0f
-#define SENSOR_SENSTIVITY_MVV 1.0f
+#define SENSOR_SENSTIVITY_MVV 1.5f
 #define SENSOR_RATED_TORQUE 50.0f
+#define ADC_AVG_WINDOW 16
+
+#define TORQUE_CAL_SLOPE 0.0008667f
 
 /* USER CODE END PD */
 
@@ -87,6 +90,9 @@ DMA_HandleTypeDef hdma_usart2_rx;
 
 volatile uint32_t adc_callback_count = 0;
 volatile uint32_t stream_data_count = 0;
+
+static uint32_t adc_avg_buf[ADC_AVG_WINDOW] = {0};
+static uint8_t adc_avg_idx = 0;
 
 uint32_t micros;
 
@@ -130,7 +136,7 @@ volatile uint8_t stepper_running = 0;
  
 volatile MotorState motor_state = MOTOR_IDLE;
 
-uint16_t adc_zero_offset; //ADC offset this is the value for which torque is 0
+uint16_t adc_zero_offset = 45; //ADC offset this is the value for which torque is 0
 
 //Variable Changes when terminate test is clicked
 /* USER CODE END PV */
@@ -153,6 +159,8 @@ void Motor_SetDirection(uint8_t dir);
 void Motor_RampUp(uint16_t maxFrequency, uint16_t steps);
 float Apply_EMA_filter(float new_angle);
 void Reset_Experiment_State(void);
+
+uint16_t Tare_Torque_Sensor(void);
 
 uint32_t GetMicroseconds(void); 
 
@@ -806,7 +814,7 @@ void Motor_Enable(uint8_t ena)
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, arr1);
     __HAL_TIM_SET_COUNTER(&htim1, 0);
 
-    adc_zero_offset = Tare_Torque_Sensor;
+    adc_zero_offset = Tare_Torque_Sensor();
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, NUM_ADC_CHANNELS);
 
         
@@ -886,12 +894,13 @@ float Calculate_Rotation(uint16_t steps) {
 }
  
 float Calculate_Torque (uint16_t adc){
-  float v_adc = ((float)((int32_t)adc - (int32_t)adc_zero_offset) /  ADC_MAX) * VREF_ADC;
-  float v_bridge = v_adc/INA_GAIN;
+  // float v_adc = ((float)((int32_t)adc - (int32_t)adc_zero_offset) /  ADC_MAX) * VREF_ADC;
+  // float v_bridge = v_adc/INA_GAIN;
 
-  float senstivity_v = (SENSOR_SENSTIVITY_MVV/1000.0f) * EXCITATION_VOLTAGE;
+  // float senstivity_v = (SENSOR_SENSTIVITY_MVV/1000.0f) * EXCITATION_VOLTAGE;
 
-  float torque_nm = (v_bridge/ senstivity_v) * SENSOR_RATED_TORQUE;
+  // float torque_nm = (v_bridge/ senstivity_v) * SENSOR_RATED_TORQUE;
+  float torque_nm = TORQUE_CAL_SLOPE * ((float)(int32_t)adc - (float)(int32_t)adc_zero_offset);
 
   return torque_nm;
 }
@@ -1020,12 +1029,12 @@ uint32_t GetMicroseconds(void) {
 
 uint16_t Tare_Torque_Sensor(void){
   uint32_t sum = 0;
-  const int N = 200;
+  const int N = 500;
   for (int i = 0; i < N; i++){
     HAL_ADC_Start(&hadc1);
     HAL_ADC_PollForConversion(&hadc1, 10);
-    sum += HAL_ADC_GetValue(&hdac1);
-    HAL_ADC_stop(&hadc1);
+    sum += HAL_ADC_GetValue(&hadc1);
+    HAL_ADC_Stop(&hadc1);
   }
   return (uint16_t)(sum/N);
 }
@@ -1069,9 +1078,8 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
     adc_avg_idx = (adc_avg_idx + 1) % ADC_AVG_WINDOW;
 
     uint32_t sum = 0;
-    for (int i = 0; i < ADC_AVG_WINDOW; i++){
-      sum += adc_avg_buf[i]
-    }
+    for (int i = 0; i < ADC_AVG_WINDOW; i++) sum += adc_avg_buf[i];
+
     latest_torque_adc = (uint16_t)(sum/ADC_AVG_WINDOW);
     adc_callback_count++;
     

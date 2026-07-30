@@ -43,6 +43,18 @@
 			}
 		]
 	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 10
+	},
+	"compileDependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "stm32cubemx::@768a070a0fe75716b479"
+		}
+	],
 	"compileGroups" : 
 	[
 		{
@@ -71,23 +83,23 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Core/Inc"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Core/Inc"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F1xx/Include"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F1xx/Include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Include"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Include"
 				}
 			],
 			"language" : "C",
@@ -151,23 +163,23 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Core/Inc"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Core/Inc"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F1xx/Include"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F1xx/Include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Include"
+					"path" : "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx/../../Drivers/CMSIS/Include"
 				}
 			],
 			"language" : "ASM",
@@ -187,6 +199,10 @@
 				"role" : "flags"
 			},
 			{
+				"fragment" : "-mcpu=cortex-m3  -T \"C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/stm32f103rbtx_flash.ld\" --specs=nano.specs -Wl,-Map=Senior.map -Wl,--gc-sections -Wl,--start-group -lc -lm -Wl,--end-group -Wl,--print-memory-usage",
+				"role" : "flags"
+			},
+			{
 				"backtrace" : 2,
 				"fragment" : "-u",
 				"role" : "flags"
@@ -199,6 +215,13 @@
 		],
 		"language" : "C"
 	},
+	"linkLibraries" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "stm32cubemx::@768a070a0fe75716b479"
+		}
+	],
 	"name" : "Senior",
 	"nameOnDisk" : "Senior.elf",
 	"paths" : 

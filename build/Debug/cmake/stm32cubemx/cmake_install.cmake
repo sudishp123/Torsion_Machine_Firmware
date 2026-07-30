@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx
+# Install script for directory: C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/cmake/stm32cubemx
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,12 +34,12 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/ST/STM32CubeCLT_1.17.0/GNU-tools-for-STM32/bin/arm-none-eabi-objdump.exe")
+  set(CMAKE_OBJDUMP "C:/ST/STM32CubeCLT_1.22.0/GNU-tools-for-STM32/bin/arm-none-eabi-objdump.exe")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/sudis/OneDrive/Desktop/Torsion_Machine_Firmware/build/Debug/cmake/stm32cubemx/install_local_manifest.txt"
+  file(WRITE "C:/Users/UNB-Torsion/Desktop/Torsion_Machine_Firmware/build/Debug/cmake/stm32cubemx/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

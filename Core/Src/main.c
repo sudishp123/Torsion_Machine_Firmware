@@ -136,7 +136,7 @@ volatile uint8_t stepper_running = 0;
  
 volatile MotorState motor_state = MOTOR_IDLE;
 
-uint16_t adc_zero_offset = 45; //ADC offset this is the value for which torque is 0
+uint16_t adc_zero_offset; //ADC offset this is the value for which torque is 0
 
 //Variable Changes when terminate test is clicked
 /* USER CODE END PV */
@@ -1046,9 +1046,9 @@ void Stream_Data(void) {
 
     micros = GetMicroseconds();
     float tstamp = micros / 1e6f;
-    // float torque = Calculate_Torque(latest_torque_adc);
-    // float torque_filtered = Apply_EMA_filter(torque);
-    float torque_filtered = Apply_EMA_filter();
+    float torque = Calculate_Torque(latest_torque_adc);
+    float torque_filtered = Apply_EMA_filter(torque);
+    // float torque_filtered = Apply_EMA_filter();
 
     // Read encoder as signed 16-bit to handle direction + wrap
     int16_t encoder_count = (int16_t)__HAL_TIM_GET_COUNTER(&htim4);

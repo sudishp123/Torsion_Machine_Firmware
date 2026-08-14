@@ -64,7 +64,9 @@ typedef enum {
 #define SENSOR_RATED_TORQUE 50.0f
 #define ADC_AVG_WINDOW 16
 
-#define TORQUE_CAL_SLOPE 0.0008667f
+// #define TORQUE_CAL_SLOPE 0.0008667f
+#define TORQUE_CAL_SLOPE 0.000886088f
+
 
 /* USER CODE END PD */
 

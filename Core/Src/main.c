@@ -1048,7 +1048,7 @@ void Stream_Data(void) {
     float tstamp = micros / 1e6f;
     // float torque = Calculate_Torque(latest_torque_adc);
     // float torque_filtered = Apply_EMA_filter(torque);
-    float torque_filtered = latest_torque_adc;
+    float torque_filtered = Apply_EMA_filter();
 
     // Read encoder as signed 16-bit to handle direction + wrap
     int16_t encoder_count = (int16_t)__HAL_TIM_GET_COUNTER(&htim4);
